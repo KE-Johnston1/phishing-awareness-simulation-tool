@@ -134,7 +134,17 @@ I refined the UI, added screenshots, improved the README, and polished the user 
 
 
 🔮 Future Improvements
-More scenarios (SMS, WhatsApp, Teams, social media)
+
+This project is intentionally simple and focused on core phishing awareness concepts, but there are several enhancements I may explore in the future:
+
+- Add more scenarios covering SMS, WhatsApp, and social engineering calls  
+- Introduce difficulty levels (Beginner, Intermediate, Advanced)  
+- Add a timer to simulate real‑world decision pressure  
+- Include a “Show me the red flags” mode after each scenario  
+- Add sound or visual cues for correct/incorrect decisions  
+- Expand the scoring breakdown with trend analysis  
+- Add a backend to store user scores for training environments  
+
 
 Difficulty levels
 
