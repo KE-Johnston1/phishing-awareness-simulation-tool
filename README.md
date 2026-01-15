@@ -12,7 +12,6 @@ Add your GitHub Pages link here once deployed:
 Code
 https://ke-johnston1.github.io/phishing-awareness-simulation-tool/
 📸 Screenshots
-(Add yours here once uploaded)
 
 Before UI Update
 ![Screenshot_15-1-2026_155259_ke-johnston1 github io](https://github.com/user-attachments/assets/a21d2e84-a997-44ff-8661-2074036ab329)
