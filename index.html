@@ -23,3 +23,27 @@
 
             <!-- User Action Buttons -->
             <div id="actions">
+                <button class="action-btn" data-choice="click">Click the Link</button>
+                <button class="action-btn" data-choice="ignore">Ignore</button>
+                <button class="action-btn" data-choice="report">Report as Phishing</button>
+            </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback" class="hidden">
+            <h3>Feedback</h3>
+            <p id="feedback-text"></p>
+            <button id="next-btn">Next Scenario</button>
+        </section>
+
+        <!-- Summary Section -->
+        <section id="summary" class="hidden">
+            <h2>Session Summary</h2>
+            <p id="summary-text"></p>
+            <button id="restart-btn">Restart Simulation</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
