@@ -2,6 +2,7 @@
 // Phishing Awareness Simulation
 // ------------------------------
 
+// Scenario data
 const scenarios = [
     {
         title: "Delivery Service: Package Held",
@@ -55,13 +56,25 @@ const scenarios = [
     }
 ];
 
+// ------------------------------
+// Tracking variables
+// ------------------------------
 let currentScenarioIndex = 0;
 let score = 0;
 let totalAnswered = 0;
 
+// New scoring breakdown
+let correctReports = 0;
+let riskyClicks = 0;
+let safeIgnores = 0;
+let incorrectActions = 0;
+
+// ------------------------------
 // DOM elements
+// ------------------------------
 const scenarioTitleEl = document.getElementById("scenario-title");
 const scenarioContentEl = document.getElementById("scenario-content");
+const progressTextEl = document.getElementById("progress-text");
 const feedbackTextEl = document.getElementById("feedback-text");
 const summaryEl = document.getElementById("summary");
 const summaryTextEl = document.getElementById("summary-text");
@@ -74,8 +87,13 @@ const actionButtons = document.querySelectorAll(".action-btn");
 // ------------------------------
 function loadScenario() {
     const scenario = scenarios[currentScenarioIndex];
+
     scenarioTitleEl.textContent = scenario.title;
     scenarioContentEl.textContent = scenario.message;
+
+    // Progress indicator
+    progressTextEl.textContent = `Scenario ${currentScenarioIndex + 1} of ${scenarios.length}`;
+
     feedbackTextEl.textContent = "Choose how you would respond.";
     summaryEl.classList.add("hidden");
     nextBtn.classList.add("hidden");
@@ -98,15 +116,26 @@ function handleAction(action) {
 
     if (isCorrect) {
         score++;
+
+        if (action === "report") correctReports++;
+        if (action === "ignore") safeIgnores++;
+
         feedbackTextEl.textContent = scenario.actions[action];
+
     } else {
-        feedbackTextEl.textContent = scenario.actions[action] +
+        incorrectActions++;
+
+        if (action === "click") riskyClicks++;
+
+        feedbackTextEl.textContent =
+            scenario.actions[action] +
             " The safer choice would have been to " + scenario.correctAction + ".";
     }
 
     // Highlight correct button
     actionButtons.forEach(btn => {
         btn.disabled = true;
+
         if (btn.dataset.action === scenario.correctAction) {
             btn.classList.add("correct");
         } else if (btn.dataset.action === action && !isCorrect) {
@@ -114,7 +143,7 @@ function handleAction(action) {
         }
     });
 
-    // Show Next button if more scenarios remain
+    // Show next or summary
     if (currentScenarioIndex < scenarios.length - 1) {
         nextBtn.classList.remove("hidden");
     } else {
@@ -127,15 +156,26 @@ function handleAction(action) {
 // ------------------------------
 function showSummary() {
     const percentage = Math.round((score / totalAnswered) * 100);
-    summaryTextEl.textContent = `You scored ${score} out of ${totalAnswered} (${percentage}%). 
-This tool is designed to help you recognise phishing patterns and think before you click.`;
+
+    summaryTextEl.innerHTML = `
+        <strong>Final Score:</strong> ${score} out of ${totalAnswered} (${percentage}%)<br><br>
+
+        <strong>Breakdown:</strong><br>
+        ✔ Correct Reports: ${correctReports}<br>
+        ✔ Safe Ignores: ${safeIgnores}<br>
+        ⚠ Risky Clicks: ${riskyClicks}<br>
+        ✖ Incorrect Actions: ${incorrectActions}<br><br>
+
+        This breakdown helps you understand your decision patterns and identify areas for improvement.
+    `;
+
     summaryEl.classList.remove("hidden");
     restartBtn.classList.remove("hidden");
     nextBtn.classList.add("hidden");
 }
 
 // ------------------------------
-// Go to next scenario
+// Next scenario
 // ------------------------------
 function nextScenario() {
     if (currentScenarioIndex < scenarios.length - 1) {
@@ -151,6 +191,13 @@ function restartSimulation() {
     currentScenarioIndex = 0;
     score = 0;
     totalAnswered = 0;
+
+    // Reset breakdown counters
+    correctReports = 0;
+    riskyClicks = 0;
+    safeIgnores = 0;
+    incorrectActions = 0;
+
     restartBtn.classList.add("hidden");
     loadScenario();
 }
@@ -160,8 +207,7 @@ function restartSimulation() {
 // ------------------------------
 actionButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-        const action = btn.dataset.action;
-        handleAction(action);
+        handleAction(btn.dataset.action);
     });
 });
 
