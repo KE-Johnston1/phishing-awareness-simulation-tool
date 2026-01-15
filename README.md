@@ -4,6 +4,13 @@ A fast, interactive way to test your phishing‑spotting instincts.
 Cybersecurity isn’t just firewalls and fancy tools — it’s people making decisions under pressure. This project recreates that moment: you’re shown a suspicious message, and you decide whether to Click, Ignore, or Report.
 Instant feedback teaches you what you missed (or what you nailed).
 
+## Tech Stack
+
+- **HTML5** – structure and layout  
+- **CSS3** – styling, accessibility, and UI polish  
+- **JavaScript (Vanilla)** – scenario logic, scoring system, and user interaction  
+- **GitHub Pages** – hosting and deployment  
+
 Built to be simple, fast, and actually fun to use.
 
 🚀 Live Demo
