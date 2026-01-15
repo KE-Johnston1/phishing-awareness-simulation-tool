@@ -91,6 +91,48 @@ Iterating design based on real usability feedback
 
 Presenting technical work in a way that’s actually engaging
 
+## Behind the Scenes: How I Designed This Tool
+
+I didn’t want this project to be “just another JavaScript exercise.”  
+The goal was to build something practical — something that reflects how real users interact with suspicious messages.
+
+### 🧠 Designing the Scenarios
+Each scenario is based on real phishing patterns:
+- Urgency (“Your account will be closed today”)
+- Fake delivery notifications
+- Suspicious links
+- Poor grammar or formatting
+- Requests for personal information
+
+I kept them short and realistic so users can make quick decisions, just like in real life.
+
+### 🎨 UI & Accessibility Choices
+The original UI was too dark and the buttons blended into the background.  
+I redesigned the interface with:
+- Light grey, high‑contrast buttons  
+- Clear spacing  
+- A simple, distraction‑free layout  
+
+This makes the tool easier to use and more accessible for all users.
+
+### 🧩 JavaScript Structure
+The logic is intentionally simple and readable:
+- An array of scenarios  
+- A function to load each one  
+- A scoring system  
+- Instant feedback  
+- A final summary  
+
+No frameworks, no dependencies — just clean, maintainable code.
+
+### 🔍 Focus on Cybersecurity Awareness
+The feedback messages explain *why* a choice was right or wrong.  
+This reinforces learning and mirrors real security training principles.
+
+### 🚀 Iteration & Improvement
+I refined the UI, added screenshots, improved the README, and polished the user flow based on how real people would interact with the tool.
+
+
 🔮 Future Improvements
 More scenarios (SMS, WhatsApp, Teams, social media)
 
