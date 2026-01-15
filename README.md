@@ -1,13 +1,13 @@
 Phishing Awareness Simulation Tool 🛡️
 A fast, interactive way to test your phishing‑spotting instincts.
 
-Cybersecurity isn’t just firewalls and fancy tools — it’s people making decisions under pressure. This project recreates that moment: you’re shown a suspicious message, and you decide whether to Click, Ignore, or Report.
+Cybersecurity isn’t just firewalls and fancy tools it’s people making decisions under pressure. This project recreates that moment: you’re shown a suspicious message, and you decide whether to Click, Ignore, or Report.
 Instant feedback teaches you what you missed (or what you nailed).
 
 ## Why This Project Matters
 
 Phishing is still one of the most common ways attackers gain access to accounts and systems.  
-Most breaches don’t start with zero‑days — they start with someone clicking the wrong link.
+Most breaches don’t start with zero‑days they start with someone clicking the wrong link.
 
 This tool focuses on the human side of cybersecurity:
 - recognising red flags  
@@ -24,6 +24,30 @@ Real users don’t need complexity — they need clarity, confidence, and quick 
 - **CSS3** – styling, accessibility, and UI polish  
 - **JavaScript (Vanilla)** – scenario logic, scoring system, and user interaction  
 - **GitHub Pages** – hosting and deployment  
+
+## Key Features
+
+- **Realistic phishing scenarios** based on common attacker tactics  
+- **Instant feedback** explaining why each choice is safe or unsafe  
+- **Progress indicator** to track how far you are through the simulation  
+- **Scoring breakdown** showing correct reports, safe ignores, risky clicks, and mistakes  
+- **Clean, accessible UI** designed for clarity and ease of use  
+- **No frameworks required** — lightweight, fast, and easy to run anywhere  
+
+## How to Run the Project
+
+This project is lightweight and runs entirely in the browser.
+
+### Option 1 — Use the Live Demo  
+You can try the simulation instantly here:  
+**https://ke-johnston1.github.io/phishing-awareness-simulation-tool/**
+
+### Option 2 — Run Locally  
+1. Download or clone the repository  
+2. Open the project folder  
+3. Double‑click `index.html` to open it in your browser  
+
+No installations, dependencies, or setup required.
 
 Built to be simple, fast, and actually fun to use.
 
@@ -69,7 +93,7 @@ easy for anyone to understand
 
 and a solid addition to my cybersecurity portfolio
 
-This project shows how I think about user behaviour, security awareness, and clear communication — all essential skills for technical support and cyber roles.
+This project shows how I think about user behaviour, security awareness, and clear communication all essential skills for technical support and cyber roles.
 
 🛠️ Tech Stack
 HTML5
@@ -91,7 +115,7 @@ A scenario loads (e.g., fake delivery email, fake bank alert, CEO fraud).
 
 You choose: Click, Ignore, or Report.
 
-The tool tells you whether you were right — and why.
+The tool tells you whether you were right and why.
 
 You move to the next scenario.
 
@@ -115,7 +139,7 @@ Presenting technical work in a way that’s actually engaging
 ## Behind the Scenes: How I Designed This Tool
 
 I didn’t want this project to be “just another JavaScript exercise.”  
-The goal was to build something practical — something that reflects how real users interact with suspicious messages.
+The goal was to build something practical something that reflects how real users interact with suspicious messages.
 
 ### 🧠 Designing the Scenarios
 Each scenario is based on real phishing patterns:
@@ -153,6 +177,18 @@ This reinforces learning and mirrors real security training principles.
 ### 🚀 Iteration & Improvement
 I refined the UI, added screenshots, improved the README, and polished the user flow based on how real people would interact with the tool.
 
+## What I Learned
+
+Building this project helped me strengthen several practical skills:
+
+- Structuring a clean, accessible frontend without relying on frameworks  
+- Writing clear, maintainable JavaScript for scenario logic and scoring  
+- Designing user flows that feel intuitive and fast  
+- Thinking like an attacker when crafting realistic phishing scenarios  
+- Communicating security concepts in plain language  
+- Iterating based on usability and clarity rather than complexity  
+
+It reinforced that good cybersecurity tools don’t need to be complicated they need to be clear, reliable, and focused on real user behaviour.
 
 🔮 Future Improvements
 
