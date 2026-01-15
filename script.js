@@ -1,146 +1,174 @@
-// ---------------------------------------------
-// Phishing Awareness Simulation Tool
-// ---------------------------------------------
+// ------------------------------
+// Phishing Awareness Simulation
+// ------------------------------
 
-// Scenario data (you can add more later)
 const scenarios = [
     {
-        title: "Delivery Notification",
-        text: `
-            <strong>Subject:</strong> Your parcel is waiting<br><br>
-            <strong>From:</strong> delivery-updates@parcel-alerts.com<br><br>
-            Your package could not be delivered. Please confirm your address by clicking the link below.
-            <br><br>
-            <a href="#">Track your parcel</a>
-        `,
-        correctAction: "report",
-        feedback: "This is a phishing attempt. The sender domain is suspicious and delivery companies rarely ask for address confirmation via random links."
+        title: "Delivery Service: Package Held",
+        message: "Your package is being held due to unpaid customs fees. Click the link below to pay and release your delivery.",
+        actions: {
+            click: "Incorrect. The link leads to a fake payment page designed to steal your card details.",
+            ignore: "Incorrect. If this were real, ignoring it could delay a genuine delivery.",
+            report: "Correct! Delivery companies don’t usually demand payment via random links in unsolicited messages."
+        },
+        correctAction: "report"
     },
     {
-        title: "Password Reset Request",
-        text: `
-            <strong>Subject:</strong> Password Reset<br><br>
-            <strong>From:</strong> security@yourbank.co.uk<br><br>
-            We detected unusual activity. Reset your password immediately using the link below.
-            <br><br>
-            <a href="#">Reset Password</a>
-        `,
-        correctAction: "ignore",
-        feedback: "This is phishing. Banks never send unsolicited password reset links. Always log in through the official website instead."
+        title: "Email: Password Expiry Notice",
+        message: "Your email password will expire in 24 hours. Click here to keep your account active.",
+        actions: {
+            click: "Incorrect. This is a classic phishing attempt to steal your login credentials.",
+            ignore: "Incorrect. If this were real, you might lose access to your account.",
+            report: "Correct! Legitimate services rarely use urgent language and random links like this."
+        },
+        correctAction: "report"
     },
     {
-        title: "Internal Request from 'CEO'",
-        text: `
-            <strong>Subject:</strong> Urgent Request<br><br>
-            <strong>From:</strong> ceo-company@outlook.com<br><br>
-            I need you to purchase gift cards immediately and send me the codes. This is confidential.
-        `,
-        correctAction: "report",
-        feedback: "Classic CEO fraud. Senior staff will never ask for gift cards or secrecy via personal email accounts."
+        title: "Social Media: Suspicious Login Attempt",
+        message: "We detected a login attempt from a new device. If this wasn’t you, click here to secure your account.",
+        actions: {
+            click: "Incorrect. The link leads to a fake login page that captures your username and password.",
+            ignore: "Incorrect. If this were real, ignoring it could leave your account at risk.",
+            report: "Correct! Always go directly to the official app or website instead of clicking links in messages."
+        },
+        correctAction: "report"
+    },
+    {
+        title: "Bank Alert: Unusual Activity",
+        message: "We detected unusual activity on your account. Please verify your identity immediately to avoid suspension.",
+        actions: {
+            click: "Incorrect. The link leads to a fake banking site designed to steal your login details.",
+            ignore: "Incorrect. Ignoring could leave your account at risk if it were real.",
+            report: "Correct! Banks don’t pressure you to click links in unsolicited messages. Always verify via official channels."
+        },
+        correctAction: "report"
+    },
+    {
+        title: "HR: Updated Employee Handbook",
+        message: "All staff must review the updated employee handbook by end of day. Failure to comply may result in disciplinary action.",
+        actions: {
+            click: "Incorrect. The link downloads a malicious file disguised as a PDF.",
+            ignore: "Incorrect. Internal messages shouldn’t be ignored without verification.",
+            report: "Correct! The threatening tone and suspicious sender address are strong red flags."
+        },
+        correctAction: "report"
     }
 ];
 
-// ---------------------------------------------
-// State
-// ---------------------------------------------
-let currentScenario = 0;
+let currentScenarioIndex = 0;
 let score = 0;
+let totalAnswered = 0;
 
-// ---------------------------------------------
-// DOM Elements
-// ---------------------------------------------
-const scenarioTitle = document.getElementById("scenario-title");
-const scenarioContent = document.getElementById("scenario-content");
-const feedbackSection = document.getElementById("feedback");
-const feedbackText = document.getElementById("feedback-text");
-const summarySection = document.getElementById("summary");
-const summaryText = document.getElementById("summary-text");
+// DOM elements
+const scenarioTitleEl = document.getElementById("scenario-title");
+const scenarioContentEl = document.getElementById("scenario-content");
+const feedbackTextEl = document.getElementById("feedback-text");
+const summaryEl = document.getElementById("summary");
+const summaryTextEl = document.getElementById("summary-text");
+const nextBtn = document.getElementById("next-btn");
+const restartBtn = document.getElementById("restart-btn");
+const actionButtons = document.querySelectorAll(".action-btn");
 
-// ---------------------------------------------
-// Load Scenario
-// ---------------------------------------------
+// ------------------------------
+// Load a scenario
+// ------------------------------
 function loadScenario() {
-    const scenario = scenarios[currentScenario];
-    scenarioTitle.textContent = scenario.title;
-    scenarioContent.innerHTML = scenario.text;
+    const scenario = scenarios[currentScenarioIndex];
+    scenarioTitleEl.textContent = scenario.title;
+    scenarioContentEl.textContent = scenario.message;
+    feedbackTextEl.textContent = "Choose how you would respond.";
+    summaryEl.classList.add("hidden");
+    nextBtn.classList.add("hidden");
+
+    // Reset button states
+    actionButtons.forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove("correct", "incorrect");
+    });
 }
 
-// ---------------------------------------------
-// Handle User Choice
-// ---------------------------------------------
-function handleChoice(choice) {
-    const scenario = scenarios[currentScenario];
+// ------------------------------
+// Handle user action
+// ------------------------------
+function handleAction(action) {
+    const scenario = scenarios[currentScenarioIndex];
+    const isCorrect = action === scenario.correctAction;
 
-    // Check if correct
-    if (choice === scenario.correctAction) {
+    totalAnswered++;
+
+    if (isCorrect) {
         score++;
-        feedbackText.textContent = "Correct! " + scenario.feedback;
+        feedbackTextEl.textContent = scenario.actions[action];
     } else {
-        feedbackText.textContent = "Not quite. " + scenario.feedback;
+        feedbackTextEl.textContent = scenario.actions[action] +
+            " The safer choice would have been to " + scenario.correctAction + ".";
     }
 
-    // Show feedback
-    feedbackSection.classList.remove("hidden");
+    // Highlight correct button
+    actionButtons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.dataset.action === scenario.correctAction) {
+            btn.classList.add("correct");
+        } else if (btn.dataset.action === action && !isCorrect) {
+            btn.classList.add("incorrect");
+        }
+    });
 
-    // Hide scenario actions
-    document.getElementById("actions").classList.add("hidden");
-}
-
-// ---------------------------------------------
-// Next Scenario
-// ---------------------------------------------
-document.getElementById("next-btn").addEventListener("click", () => {
-    currentScenario++;
-
-    if (currentScenario < scenarios.length) {
-        // Load next scenario
-        feedbackSection.classList.add("hidden");
-        document.getElementById("actions").classList.remove("hidden");
-        loadScenario();
+    // Show Next button if more scenarios remain
+    if (currentScenarioIndex < scenarios.length - 1) {
+        nextBtn.classList.remove("hidden");
     } else {
-        // Show summary
         showSummary();
     }
-});
-
-// ---------------------------------------------
-// Summary
-// ---------------------------------------------
-function showSummary() {
-    feedbackSection.classList.add("hidden");
-    summarySection.classList.remove("hidden");
-
-    summaryText.innerHTML = `
-        You completed ${scenarios.length} scenarios.<br><br>
-        <strong>Your score:</strong> ${score} / ${scenarios.length}<br><br>
-        ${score === scenarios.length 
-            ? "Excellent awareness — you spotted every phishing attempt."
-            : "Good effort. Review the feedback to strengthen your phishing detection skills."
-        }
-    `;
 }
 
-// ---------------------------------------------
-// Restart
-// ---------------------------------------------
-document.getElementById("restart-btn").addEventListener("click", () => {
-    currentScenario = 0;
-    score = 0;
-    summarySection.classList.add("hidden");
-    document.getElementById("actions").classList.remove("hidden");
-    loadScenario();
-});
+// ------------------------------
+// Show summary
+// ------------------------------
+function showSummary() {
+    const percentage = Math.round((score / totalAnswered) * 100);
+    summaryTextEl.textContent = `You scored ${score} out of ${totalAnswered} (${percentage}%). 
+This tool is designed to help you recognise phishing patterns and think before you click.`;
+    summaryEl.classList.remove("hidden");
+    restartBtn.classList.remove("hidden");
+    nextBtn.classList.add("hidden");
+}
 
-// ---------------------------------------------
-// Attach button listeners
-// ---------------------------------------------
-document.querySelectorAll(".action-btn").forEach(button => {
-    button.addEventListener("click", () => {
-        handleChoice(button.dataset.choice);
+// ------------------------------
+// Go to next scenario
+// ------------------------------
+function nextScenario() {
+    if (currentScenarioIndex < scenarios.length - 1) {
+        currentScenarioIndex++;
+        loadScenario();
+    }
+}
+
+// ------------------------------
+// Restart simulation
+// ------------------------------
+function restartSimulation() {
+    currentScenarioIndex = 0;
+    score = 0;
+    totalAnswered = 0;
+    restartBtn.classList.add("hidden");
+    loadScenario();
+}
+
+// ------------------------------
+// Event listeners
+// ------------------------------
+actionButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const action = btn.dataset.action;
+        handleAction(action);
     });
 });
 
-// ---------------------------------------------
+nextBtn.addEventListener("click", nextScenario);
+restartBtn.addEventListener("click", restartSimulation);
+
+// ------------------------------
 // Initialise
-// ---------------------------------------------
+// ------------------------------
 loadScenario();
