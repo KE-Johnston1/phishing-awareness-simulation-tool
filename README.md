@@ -222,6 +222,14 @@ cd phishing-awareness-simulation-tool
 open index.html
 No build steps. No installs. Just open and go.
 
+## Final Thoughts
+
+This project started as a simple idea, but it became a practical way to show how small decisions can make a big difference in cybersecurity.  
+If it helps even one person pause before clicking a suspicious link, then it’s already done its job.
+
+Thanks for taking the time to explore it feel free to try the simulation and see how your instincts hold up.
+
+
 🔐 Security Notice
 This tool is for educational use only.
 Everything runs locally in your browser — nothing is stored or transmitted.
