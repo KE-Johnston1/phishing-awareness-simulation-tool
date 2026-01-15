@@ -29,6 +29,14 @@ body {
     margin-bottom: 20px;
 }
 
+/* NEW: Progress indicator */
+.progress {
+    font-size: 0.9rem;
+    color: #b5b5b5;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
 /* Feedback box */
 #feedback-box {
     background: #2f2f2f;
