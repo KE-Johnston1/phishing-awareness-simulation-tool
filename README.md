@@ -4,6 +4,20 @@ A fast, interactive way to test your phishing‑spotting instincts.
 Cybersecurity isn’t just firewalls and fancy tools — it’s people making decisions under pressure. This project recreates that moment: you’re shown a suspicious message, and you decide whether to Click, Ignore, or Report.
 Instant feedback teaches you what you missed (or what you nailed).
 
+## Why This Project Matters
+
+Phishing is still one of the most common ways attackers gain access to accounts and systems.  
+Most breaches don’t start with zero‑days — they start with someone clicking the wrong link.
+
+This tool focuses on the human side of cybersecurity:
+- recognising red flags  
+- slowing down before clicking  
+- understanding attacker tactics  
+- building instinct through repetition  
+
+It’s simple on purpose.  
+Real users don’t need complexity — they need clarity, confidence, and quick feedback.
+
 ## Tech Stack
 
 - **HTML5** – structure and layout  
